@@ -23,6 +23,7 @@ window.onload = function () {
         if (!msg.value) {
             return false;
         }
+        console.log(msg)
         conn.send(msg.value);
         msg.value = "";
         return false;

@@ -12,7 +12,7 @@ import (
 	"github.com/babulalt/go-websocket/src"
 )
 
-var addr = flag.String("addr", ":8080", "http service address")
+var addr = flag.String("addr", ":8081", "http service address")
 
 func serveHome(w http.ResponseWriter, r *http.Request) {
 	log.Println(r.URL)
@@ -36,6 +36,7 @@ func main() {
 		src.ServeWs(hub, w, r)
 	})
 	err := http.ListenAndServe(*addr, nil)
+	log.Println("servering on port ::", addr)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}

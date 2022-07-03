@@ -70,6 +70,7 @@ func (c *Client) readPump() {
 			break
 		}
 		message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
+		log.Println("read message ::", string(message))
 		c.hub.Broadcast <- message
 	}
 }
@@ -100,7 +101,7 @@ func (c *Client) writePump() {
 				return
 			}
 			w.Write(message)
-
+			log.Println(string(message))
 			// Add queued chat messages to the current websocket message.
 			n := len(c.send)
 			for i := 0; i < n; i++ {
@@ -129,7 +130,6 @@ func ServeWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	}
 	client := &Client{hub: hub, conn: conn, send: make(chan []byte, 256)}
 	client.hub.Register <- client
-
 	// Allow collection of memory referenced by the caller by doing all work in
 	// new goroutines.
 	go client.writePump()
