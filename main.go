@@ -12,7 +12,7 @@ import (
 	"github.com/babulalt/go-websocket/src"
 )
 
-var addr = flag.String("addr", ":8080", "http service address")
+var addr = flag.String("addr", ":3000", "http service address")
 
 func serveHome(w http.ResponseWriter, r *http.Request) {
 	log.Println(r.URL)
